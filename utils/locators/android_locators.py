@@ -1,29 +1,27 @@
 from selenium.webdriver.common.by import By
 from utils.data import TestData
-
+from appium.webdriver.common.appiumby import AppiumBy
 
 class CommonLocator(object):
-    TOAST_MESSAGE = (By.XPATH, "//android.widget.Toast[1]")
-    OK = (By.ID, "android:id/button1")
+    MENU_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Catalog\")")
 
+class MenuLocator(object):
+    CATALOG_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Catalog\"")
+    DRAWING_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Drawing\")")
+    LOGIN_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Log In\")")
 
 class LoginPageLocator(object):
-    COUNTRY_DROPDOWN = (By.ID, "com.androidsample.generalstore:id/spinnerCountry")
-    COUNTRY = (By.XPATH, "//android.widget.TextView[@text='{}']")
-    NAME_FIELD = (By.ID, "com.androidsample.generalstore:id/nameField")
-    GENDER = (
-        By.XPATH,
-        "//android.widget.RadioButton[@resource-id='com.androidsample.generalstore:id/radio{}']",
-    )
-    LETS_SHOP = (By.ID, "com.androidsample.generalstore:id/btnLetsShop")
+    USERNAME_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/nameET")
+    PASSWORD_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/passwordET")
+    LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Tap to login with given credentials")
 
-    @classmethod
-    def select_country(cls, country):
-        return cls.COUNTRY[1].format(country)
-
-    @classmethod
-    def select_gender(cls, gender):
-        return cls.GENDER[1].format(gender)
+    # @classmethod
+    # def select_country(cls, country):
+    #     return cls.COUNTRY[1].format(country)
+    #
+    # @classmethod
+    # def select_gender(cls, gender):
+    #     return cls.GENDER[1].format(gender)
 
 
 class HomePageLocator(object):
