@@ -20,13 +20,13 @@ class TestHomePage:
         login_page.fill_login_form(data["email"], data["password"])
         homepage.capture_screenshot()
 
-    # @allure.step("test_error_msg")
-    # @allure.description("Filling Form with blank name field")
-    # @pytest.mark.smoke
-    # def test_error_msg(self):
-    #     homepage = HomePage(self.driver)
-    #     homepage.validating_blank_name_error_message()
-    #     homepage.capture_screenshot()
+    @allure.step("test_error_msg")
+    @allure.description("Filling Form with blank name field")
+    @pytest.mark.smoke
+    def test_error_msg(self):
+        homepage = HomePage(self.driver)
+        homepage.validating_blank_name_error_message()
+        homepage.capture_screenshot()
     #
     # @allure.step("test_shopping")
     # @allure.description("Shopping a product & validate cart page")
