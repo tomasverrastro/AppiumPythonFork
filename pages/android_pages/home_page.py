@@ -26,7 +26,10 @@ class HomePage(PageFactory):
     def click_menu_button(self):
         driver = self.driver
         log = get_logger()
+        log.info("Trying to click menu button")
+        time.sleep(3)
         driver.find_element(*self.common_locator.MENU_BUTTON).click()
+        log.info("Menu button was clicked")
 
     def click_login_button(self):
         driver = self.driver

@@ -3,7 +3,7 @@ from utils.data import TestData
 from appium.webdriver.common.appiumby import AppiumBy
 
 class CommonLocator(object):
-    MENU_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Catalog\")")
+    MENU_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/menuIV")
 
 class MenuLocator(object):
     CATALOG_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Catalog\"")
