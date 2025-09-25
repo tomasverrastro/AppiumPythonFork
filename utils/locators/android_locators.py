@@ -1,52 +1,83 @@
 from selenium.webdriver.common.by import By
-from utils.data import TestData
 from appium.webdriver.common.appiumby import AppiumBy
 
 class CommonLocator(object):
     MENU_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/menuIV")
+    CART_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/cartRL")
+    SORT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Shows current sorting order and displays available sorting options")
+    DESCENDING_NAME_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Descending order by name")
+    ASCENDING_PRICE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Descending order by name")
 
 class MenuLocator(object):
     CATALOG_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Catalog\"")
     DRAWING_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Drawing\")")
     LOGIN_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Log In\")")
+    RESET_APP_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Reset App State\")")
+    CONFIRM_RESET_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().resourceId(\"android:id/button1\")")
+    SUCCESSFUL_RESET_TEXT = (AppiumBy.ANDROID_UIAUTOMATOR,  "new UiSelector().resourceId(\"android:id/message\")")
+    OK_SUCCESSFUL_RESET_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().resourceId(\"android:id/button1\")")
 
 class LoginPageLocator(object):
     USERNAME_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/nameET")
     PASSWORD_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/passwordET")
     LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Tap to login with given credentials")
+    REQUIRED_USERNAME_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/nameErrorTV")
+    REQUIRED_PASSWORD_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/passwordErrorTV")
 
-    # @classmethod
-    # def select_country(cls, country):
-    #     return cls.COUNTRY[1].format(country)
-    #
-    # @classmethod
-    # def select_gender(cls, gender):
-    #     return cls.GENDER[1].format(gender)
+class ProductsPageLocator(object):
+    PAGE_TITLE_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/productTV")
+    VISIBLE_PRODUCT_TITLES = (By.ID, "com.saucelabs.mydemoapp.android:id/titleTV")
+    VISIBLE_PRODUCT_PRICES = (By.ID, "com.saucelabs.mydemoapp.android:id/priceTV")
+
+class CartPageLocator(object):
+    PAGE_TITLE_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/noItemTitleTV")
+    REMOVE_ITEM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Removes product from cart")
+    CHECKOUT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Confirms products for checkout")
+
+class CheckoutPageLocator(object):
+    PAGE_TITLE_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/checkoutTitleTV")
+    FULL_NAME_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/fullNameET")
+    ADDRESS1_INPUT= (By.ID, "com.saucelabs.mydemoapp.android:id/address1ET")
+    CITY_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/cityET")
+    ZIP_CODE_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/zipET")
+    COUNTRY_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/countryET")
+    TO_PAYMENT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Saves user info for checkout")
+    ZIP_ERROR_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/zipErrorTV")
+
+class CheckoutCompletePageLocator(object):
+    CHECKOUT_COMPLETE_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/completeTV")
+    CONTINUE_SHOPPING_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Tap to open catalog")
+
+class DrawingPageLocator(object):
+    DRAWING_PAD = (By.ID, "com.saucelabs.mydemoapp.android:id/signature_pad")
+    SAVE_DRAWING_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/saveBtn")
+    SUCCESSFUL_SAVE_TEXT = (By.ID, "android:id/message")
+    OK_SAVE_DRAWING_BUTTON = (By.ID, "android:id/button1")
+    ALLOW_PERMISSION_BUTTON = (By.ID, "com.android.permissioncontroller:id/permission_allow_button")
+
+class OrderReviewPageLocator(object):
+    ORDER_REVIEW_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/enterShippingAddressTV")
+    PLACE_ORDER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Completes the process of checkout")
+
+class PaymentPageLocator(object):
+    PAYMENT_METHOD_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/enterPaymentMethodTV")
+    FULL_NAME_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/nameET")
+    CARD_NUMBER_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/cardNumberET")
+    EXPIRATION_DATE_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/expirationDateET")
+    SECURITY_CODE_INPUT = (By.ID, "com.saucelabs.mydemoapp.android:id/securityCodeET")
+    REVIEW_ORDER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Saves payment info and launches screen to review checkout data")
+    SECURITY_CODE_ERROR_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/securityCodeErrorTV")
+
+class ProductDetailsPageLocator(object):
+    PRODUCT_NAME_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/productTV")
+    RATE_5_STARS_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/start5IV")
+    SUCCESSFUL_REVIEW_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/sortTV")
+    OK_SUCCESSFUL_REVIEW_BUTTON = (By.ID, "com.saucelabs.mydemoapp.android:id/closeBt")
+    CLOSE_REVIEW_DIALOG_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Closes review dialog")
+    PRODUCT_PRICE_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/priceTV")
+    ADD_TO_CART_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "Tap to add product to cart")
+    PRODUCT_DESCRIPTION_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/descTV")
+    CART_AMOUNT_TEXT = (By.ID, "com.saucelabs.mydemoapp.android:id/cartTV")
 
 
-class HomePageLocator(object):
-    PRODUCT_ADD_TO_CART = (
-        By.XPATH,
-        "//android.widget.TextView[@text='{}']/parent::android.widget.LinearLayout//android.widget.TextView["
-        "@text='ADD TO CART']",
-    )
 
-    CART_BUTTON = (By.ID, "com.androidsample.generalstore:id/appbar_btn_cart")
-    CART_TITLE = (By.XPATH, "//android.widget.TextView[@text='Cart']")
-    PRODUCT_NAME = (By.ID, "com.androidsample.generalstore:id/productName")
-    PRODUCT_PRICE = (By.ID, "com.androidsample.generalstore:id/productPrice")
-    TOTAL_AMOUNT = (By.ID, "com.androidsample.generalstore:id/totalAmountLbl")
-    TERMS_AND_CONDITIONS_BUTTON = (
-        By.ID,
-        "com.androidsample.generalstore:id/termsButton",
-    )
-    TERMS_AND_CONDITIONS_BUTTON_TITLE = (
-        By.ID,
-        "com.androidsample.generalstore:id/alertTitle",
-    )
-    CHECKBOX = (By.CLASS_NAME, "android.widget.CheckBox")
-    PROCEED_BUTTON = (By.ID, "com.androidsample.generalstore:id/btnProceed")
-
-    @classmethod
-    def product_add_to_cart(cls, product_name):
-        return cls.PRODUCT_ADD_TO_CART[1].format(product_name)

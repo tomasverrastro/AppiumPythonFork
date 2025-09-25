@@ -2,6 +2,7 @@ import pytest
 import allure
 from pages.android_pages.home_page import HomePage
 from pages.android_pages.login_page import LoginPage
+from pages.android_pages.products_page import ProductsPage
 from utils.common import get_test_data
 
 
@@ -15,32 +16,12 @@ class TestHomePage:
     def test_fill_form(self, data):
         homepage = HomePage(self.driver)
         login_page = LoginPage(self.driver)
+        products_page = ProductsPage(self.driver)
         homepage.click_menu_button()
         homepage.click_login_button()
         login_page.fill_login_form(data["email"], data["password"])
         homepage.capture_screenshot()
+        assert "Products" in products_page.get_products_page_title()
 
-    @allure.step("test_error_msg")
-    @allure.description("Filling Form with blank name field")
-    @pytest.mark.smoke
-    def test_error_msg(self):
-        homepage = HomePage(self.driver)
-        homepage.validating_blank_name_error_message()
-        homepage.capture_screenshot()
 
-    @allure.step("test_shopping")
-    @allure.description("Shopping a product & validate cart page")
-    @pytest.mark.smoke
-    def test_shopping(self):
-        homepage = HomePage(self.driver)
-        homepage.shopping()
-        homepage.capture_screenshot()
 
-    @allure.step("test_price_validate")
-    @allure.description("Shopping multiple product & validate price cart page")
-    @pytest.mark.regression
-    @pytest.mark.xfail
-    def test_price_validate(self):
-        homepage = HomePage(self.driver)
-        homepage.validating_cart_price()
-        homepage.capture_screenshot()
