@@ -82,6 +82,44 @@ class HomePage(PageFactory):
         # Take the screenshot and save it
         self.driver.get_screenshot_as_file(screenshot_path)
 
+    def scroll_down(self):
+        """
+        Scroll down on the current screen
+        Uses Appium's scroll gesture
+        """
+        log = get_logger()
+
+        try:
+            # Get screen dimensions
+            screen_size = self.driver.get_window_size()
+            width = screen_size['width']
+            height = screen_size['height']
+
+            # Calculate scroll coordinates (from 80% to 20% of screen height)
+            start_x = width // 2
+            start_y = int(height * 0.8)
+            end_x = width // 2
+            end_y = int(height * 0.2)
+
+            # Perform scroll gesture
+            self.driver.swipe(start_x, start_y, end_x, end_y, duration=1000)
+
+            # Small wait for the scroll to complete
+            time.sleep(1)
+
+            log.info("Scrolled down successfully")
+
+        except Exception as e:
+            log.error(f"Error scrolling down: {str(e)}")
+            raise
+
+    def scroll_to_element(self, attribute, value):
+        scroll_expression = (
+            f"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView("
+            f'new UiSelector().{attribute}("{value}"))'
+        )
+        return self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_expression)
+
     def scroll_to_text(self, txt):
         """
         This method help with scroll to defined text
@@ -92,6 +130,10 @@ class HomePage(PageFactory):
             f'new UiSelector().text("{txt}"))'
         )
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_expression)
+
+
+
+
 
     def clear_amount(self, price_str):
         # Remove the "$" symbol and any commas from the string
@@ -261,3 +303,5 @@ class HomePage(PageFactory):
     #     self.driver.find_element(*self.login_locator.GENDER).click()
     #     log.info(f"Validated Apps Native Interaction")
     #     self.capture_screenshot()
+
+
