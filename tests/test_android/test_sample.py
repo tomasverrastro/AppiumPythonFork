@@ -8,12 +8,12 @@ from utils.common import get_test_data
 
 @allure.title("Login & Products Test")
 @pytest.mark.usefixtures("setup")
-class TestHomePage:
-    @allure.step("test_fill_form")
-    @allure.description("Filling Form with different datasets")
+class TestLogin:
+    @allure.step("test_correct_login")
+    @allure.description("Login with correct credentials")
     @pytest.mark.smoke
     @pytest.mark.parametrize("data", get_test_data("info"))
-    def test_fill_form(self, data):
+    def test_correct_login(self, data):
         homepage = HomePage(self.driver)
         login_page = LoginPage(self.driver)
         products_page = ProductsPage(self.driver)
@@ -22,6 +22,20 @@ class TestHomePage:
         login_page.fill_login_form(data["email"], data["password"])
         homepage.capture_screenshot()
         assert "Products" in products_page.get_products_page_title()
+
+    @allure.step("test_incorrect_login")
+    @allure.description("Login with incorrect sets of data")
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("data", get_test_data("incorrect_login"))
+    def test_incorrect_login(self, data):
+        homepage = HomePage(self.driver)
+        login_page = LoginPage(self.driver)
+        products_page = ProductsPage(self.driver)
+        homepage.click_menu_button()
+        homepage.click_login_button()
+        login_page.fill_login_form(data["email"], data["password"])
+        homepage.capture_screenshot()
+        assert data["text"] in homepage.get_text_from_element(data["element"])
 
 
     @allure.step("test_get_products")

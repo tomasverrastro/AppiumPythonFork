@@ -131,6 +131,64 @@ class HomePage(PageFactory):
         )
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_expression)
 
+    def parse_locator_from_string(self, locator_string):
+        """
+        Convert locator string from Excel to proper tupla format
+
+        Args:
+            locator_string (str): "By.ID, 'selector'" or "By.XPATH, '//xpath'"
+
+        Returns:
+            tuple: (By.STRATEGY, "selector")
+        """
+        # Remove extra spaces and quotes
+        clean_string = locator_string.strip()
+
+        # Split by comma
+        parts = clean_string.split(',', 1)  # Split only on first comma
+
+        if len(parts) != 2:
+            raise ValueError(f"Invalid locator format: {locator_string}")
+
+        # Extract strategy and selector
+        strategy_part = parts[0].strip()
+        selector_part = parts[1].strip().strip('"').strip("'")
+
+        # Map string strategy to By constant
+        strategy_map = {
+            "By.ID": By.ID,
+            "By.XPATH": By.XPATH,
+            "By.CLASS_NAME": By.CLASS_NAME,
+            "By.NAME": By.NAME,
+            "By.TAG_NAME": By.TAG_NAME,
+            "By.CSS_SELECTOR": By.CSS_SELECTOR,
+            "By.LINK_TEXT": By.LINK_TEXT,
+            "By.PARTIAL_LINK_TEXT": By.PARTIAL_LINK_TEXT,
+            "AppiumBy.ACCESSIBILITY_ID": AppiumBy.ACCESSIBILITY_ID,
+            "AppiumBy.ANDROID_UIAUTOMATOR": AppiumBy.ANDROID_UIAUTOMATOR,
+        }
+
+        if strategy_part not in strategy_map:
+            raise ValueError(f"Unsupported locator strategy: {strategy_part}")
+
+        return (strategy_map[strategy_part], selector_part)
+
+    def get_text_from_element(self, locator_string):
+        """
+        Get text from element using locator string from Excel
+
+        Args:
+            locator_string (str): Locator in string format from Excel
+
+        Returns:
+            str: Element text
+        """
+        # Convert string to proper locator tupla
+        locator = self.parse_locator_from_string(locator_string)
+
+        # Now use the proper tupla format
+        return self.driver.find_element(*locator).text
+
 
 
 
